@@ -7,64 +7,67 @@
 import AVKit
 import SwiftUI
 
-public struct GreenVideoPlayer: UIViewControllerRepresentable {
-  @ObservedObject var viewModel: MyVideoPlayerViewModel
+public struct MyVideoPlayer: UIViewControllerRepresentable {
+    @ObservedObject var viewModel: MyVideoPlayerViewModel
+
+    /// 영상 재생 관련 컨트롤러 노출 및 동작 여부
+    var isDisplayPlaybackControls: Bool
+    /// 선형 재생 여부 (선형 재생 시 되감기/넘어가기 동작 불가)
+    var isRequireLinearPlayback: Bool
+    /// 비디오 화면 리사이징
+    var videoGravity: AVLayerVideoGravity
+    /// 음소거 여부
+    var isMuted: Bool
+    /// PIP 재생 모드 허용 여부
+    var isAllowPIP: Bool
+    /// 화면 회전 지원
+    var autorotate: Bool
+    /// 화면 모드
+    var interfaceMode: InterfaceOrientationMode
+    /// 외부 디바이스 재생 연동
+    var isAllowExternalPlayback: Bool
   
-  /// 영상 재생 관련 컨트롤러 노출 및 동작 여부
-  var isDisplayPlaybackControls: Bool
-  /// 선형 재생 여부 (선형 재생 시 되감기/넘어가기 동작 불가)
-  var isRequireLinearPlayback: Bool
-  /// 비디오 화면 리사이징
-  var videoGravity: AVLayerVideoGravity
-  /// PIP 재생 모드 허용 여부
-  var isAllowPIP: Bool
-  /// 화면 회전 지원
-  var autorotate: Bool
-  /// 화면 모드
-  var interfaceMode: InterfaceOrientationMode
-  /// 외부 디바이스 재생 연동
-  var isAllowExternalPlayback: Bool
-  
-  public init(
-    viewModel: MyVideoPlayerViewModel,
-    isDisplayPlaybackControls: Bool = true,
-    isRequireLinearPlayback: Bool = false,
-    videoGravity: AVLayerVideoGravity = .resizeAspect,
-    isAllowPIP: Bool = true,
-    autorotate: Bool = true,
-    interfaceMode: InterfaceOrientationMode = .all,
-    isAllowExternalPlayback: Bool = false
-  ) {
-    self.viewModel = viewModel
-    self.isDisplayPlaybackControls = isDisplayPlaybackControls
-    self.isRequireLinearPlayback = isRequireLinearPlayback
-    self.videoGravity = videoGravity
-    self.isAllowPIP = isAllowPIP
-    self.autorotate = autorotate
-    self.interfaceMode = interfaceMode
-    self.isAllowExternalPlayback = isAllowExternalPlayback
+    public init(
+        viewModel: MyVideoPlayerViewModel,
+        isDisplayPlaybackControls: Bool = true,
+        isRequireLinearPlayback: Bool = true,
+        videoGravity: AVLayerVideoGravity = .resizeAspect,
+        isMuted: Bool = false,
+        isAllowPIP: Bool = true,
+        autorotate: Bool = true,
+        interfaceMode: InterfaceOrientationMode = .all,
+        isAllowExternalPlayback: Bool = false
+    ) {
+      self.viewModel = viewModel
+      self.isDisplayPlaybackControls = isDisplayPlaybackControls
+      self.isRequireLinearPlayback = isRequireLinearPlayback
+      self.videoGravity = videoGravity
+      self.isMuted = isMuted
+      self.isAllowPIP = isAllowPIP
+      self.autorotate = autorotate
+      self.interfaceMode = interfaceMode
+      self.isAllowExternalPlayback = isAllowExternalPlayback
   }
   
   public func makeUIViewController(context: Context) -> AVPlayerViewController {
-    let controller = CustomAVPlayerViewController(
-      autorotate: autorotate,
-      interfaceMode: interfaceMode
-    )
+      let controller = CustomAVPlayerViewController(autorotate: autorotate, interfaceMode: interfaceMode)
     
-    controller.player = viewModel.player
-    controller.delegate = context.coordinator
-    controller.showsPlaybackControls = isDisplayPlaybackControls
-    controller.requiresLinearPlayback = isRequireLinearPlayback
-    controller.videoGravity = videoGravity
-    controller.allowsPictureInPicturePlayback = isAllowPIP
-    controller.player?.allowsExternalPlayback = isAllowExternalPlayback
+      controller.player = viewModel.player
+      controller.delegate = context.coordinator
+      controller.showsPlaybackControls = isDisplayPlaybackControls
+      controller.requiresLinearPlayback = isRequireLinearPlayback
+      controller.videoGravity = videoGravity
+      controller.allowsPictureInPicturePlayback = isAllowPIP
+      controller.player?.allowsExternalPlayback = isAllowExternalPlayback
+      controller.player?.isMuted = isMuted
    
-    return controller
+      return controller
   }
   
   public func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
     uiViewController.player = viewModel.player
     uiViewController.allowsPictureInPicturePlayback = isAllowPIP
+      uiViewController.player?.isMuted = isMuted
   }
   
   public func makeCoordinator() -> Coordinator {
@@ -72,9 +75,9 @@ public struct GreenVideoPlayer: UIViewControllerRepresentable {
   }
   
   public class Coordinator: NSObject, AVPlayerViewControllerDelegate {
-    let parent: GreenVideoPlayer
+    let parent: MyVideoPlayer
     
-    public init(_ parent: GreenVideoPlayer) {
+    public init(_ parent: MyVideoPlayer) {
       self.parent = parent
     }
     
@@ -102,7 +105,7 @@ public enum InterfaceOrientationMode {
   case all
 }
 
-// MARK: - 커스텀 AVPlayerController
+// MARK: - AVPlayerController
 class CustomAVPlayerViewController: AVPlayerViewController {
   var autorotate: Bool
   var interfaceMode: InterfaceOrientationMode

@@ -11,7 +11,7 @@ public struct VideoPlayerView: View {
     @StateObject private var myVideoPlayerViewModel = MyVideoPlayerViewModel()
   
     public var body: some View {
-        GreenVideoPlayer(viewModel: myVideoPlayerViewModel)
+        MyVideoPlayer(viewModel: myVideoPlayerViewModel)
             .onAppear {
                 myVideoPlayerViewModel.media = Media(
                     url: viewModel.contentURL
