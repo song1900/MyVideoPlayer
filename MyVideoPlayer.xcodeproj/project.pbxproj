@@ -21,6 +21,7 @@
 /* Begin PBXFileReference section */
 		5F0AB6C72B1B2E940043C957 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		5F0AB6C92B1B2EF30043C957 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		5F0AB6CD2B1DE4420043C957 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5F85368D2B17716B0008EF3E /* MyVideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8536902B17716B0008EF3E /* MyVideoPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVideoPlayerApp.swift; sourceTree = "<group>"; };
 		5F8536942B17716C0008EF3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		5F85368F2B17716B0008EF3E /* MyVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				5F0AB6CD2B1DE4420043C957 /* Info.plist */,
 				5F8536902B17716B0008EF3E /* MyVideoPlayerApp.swift */,
 				5F0AB6C72B1B2E940043C957 /* VideoPlayerView.swift */,
 				5F0AB6C92B1B2EF30043C957 /* VideoPlayerViewModel.swift */,
@@ -303,6 +305,7 @@
 				DEVELOPMENT_TEAM = E98D6ZNGDP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyVideoPlayer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -332,6 +335,7 @@
 				DEVELOPMENT_TEAM = E98D6ZNGDP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MyVideoPlayer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
